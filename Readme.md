@@ -1,13 +1,13 @@
-CSV to Database Importer
+**CSV to Database Importer**
 This Python package provides functionality to import CSV files into a MySQL database. It supports both local CSV files and CSV files stored on Google Drive.
 
-Installation
+**Installation**
 You can install the package using pip:
 pip install csv2database
 
 
-Usage
-Local CSV Import
+**Usage**
+**Local CSV Import**
 To import local CSV files into your MySQL database, you can use the LocalCSVImporter class provided by this package. Here's an example of how to use it:
 
 from csv2database.csv_import import LocalCSVImporter
@@ -24,7 +24,7 @@ else:
     print("Error importing local CSV files.")
 
 
-Google Drive CSV Import
+**Google Drive CSV Import**
 To import CSV files from Google Drive into your MySQL database, you can use the GoogleDriveImporter class provided by this package. Here's an example of how to use it:
 
 from csv2database.csv_import import GoogleDriveImporter
@@ -41,12 +41,12 @@ else:
     print("Error importing Google Drive CSV file.")
 
 
-Dependencies:
+**Dependencies:**
 numpy >= 1.0.0
 pandas >= 1.0.0
 mysql-connector-python >= 8.0.0
 google-api-python-client >= 2.0.0
 
 
-License
+**License**
 This project is licensed under the MIT License. See the LICENSE file for details.
