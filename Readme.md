@@ -18,9 +18,11 @@ To import local CSV files into your MySQL database, you can use the LocalCSVImpo
 from csv2database.csv_import import LocalCSVImporter
 
 #Specify the folder path containing your CSV files
+
 folder_path = "/path/to/your/csv/files"
 
 #Initialize LocalCSVImporter and call the import_csv_to_mysql method
+
 success = LocalCSVImporter(folder_path, "localhost", "my_database", "root", "password").import_csv_to_mysql()
 
 if success:
@@ -36,9 +38,11 @@ To import CSV files from Google Drive into your MySQL database, you can use the 
 from csv2database.csv_import import GoogleDriveImporter
 
 #Specify the file ID of the CSV file on Google Drive
+
 file_id = "your_google_drive_file_id"
 
 #Initialize GoogleDriveImporter and call the load_csv_to_mysql method
+
 success = GoogleDriveImporter(file_id).load_csv_to_mysql("localhost", "my_database", "root", "password")
 
 if success:
