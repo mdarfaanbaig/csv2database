@@ -1,6 +1,6 @@
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"D:\import_csv_to_mysql\beginest-service-account-key.json"
-from csv_to_mysql_importer.csv_import import LocalCSVImporter, GoogleDriveImporter
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"D:\Beginest_Project\beginest-service-account-key.json"
+from csv2database.csv_import import LocalCSVImporter, GoogleDriveImporter
 
 def main():
 
