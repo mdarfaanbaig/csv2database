@@ -8,6 +8,67 @@ import logging
 import io
 import csv
 
+class GoogleSheetImporter:
+    def __init__(self, spreadsheet_id, sheet_name, create_fresh=False):
+        self.spreadsheet_id = spreadsheet_id
+        self.sheet_name = sheet_name
+        self.create_fresh = create_fresh
+        self.logger = logging.getLogger(__name__)
+
+    def download_sheet_from_google_drive(self):
+        try:
+            service = build('sheets', 'v4')
+            sheet = service.spreadsheets()
+            result = sheet.values().get(spreadsheetId=self.spreadsheet_id,
+                                         range="A:Z").execute()
+            values = result.get('values', [])
+
+            if not values:
+                self.logger.error('No data found in the Google Sheet.')
+                return None
+            else:
+                return values
+        except Exception as e:
+            self.logger.error(f"Error downloading Google Sheet: {e}")
+            return None
+
+
+    def load_sheet_to_mysql(self, host, dbname, user, password):
+        sheet_data = self.download_sheet_from_google_drive()
+        if not sheet_data:
+            self.logger.error("Google Sheet download failed. Aborting import.")
+            return False
+
+        table_name = self.sheet_name.replace(' ', '_').lower()
+
+        try:
+            conn = mysql.connector.connect(host=host, user=user, password=password, database=dbname)
+            with conn.cursor() as cursor:
+                if self.create_fresh:
+                    cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
+                    conn.commit()
+
+                headers = sheet_data[0]
+                col_str = ", ".join([f"`{col.strip()}` VARCHAR(255)" for col in headers])
+                create_table_query = f"CREATE TABLE IF NOT EXISTS {table_name} ({col_str})"
+                cursor.execute(create_table_query)
+                conn.commit()
+
+                insert_query = f"INSERT INTO {table_name} VALUES ({', '.join(['%s']*len(headers))})"
+                for row in sheet_data[1:]:
+                    cursor.execute(insert_query, row)
+                    conn.commit()
+
+            self.logger.info("Data imported successfully from Google Sheet.")
+            return True
+        except mysql.connector.Error as e:
+            self.logger.error(f"MySQL Error: {e}")
+            return False
+        finally:
+            if conn:
+                conn.close()
+
+
 class GoogleDriveImporter:
     def __init__(self, file_id, create_fresh=False):
         self.file_id = file_id
