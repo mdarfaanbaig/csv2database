@@ -1,6 +1,6 @@
 **CSV to Database Importer**
 
-This Python package provides functionality to import CSV files into a MySQL database. It supports both local CSV files and CSV files stored on Google Drive.
+This Python package provides functionality to import CSV files into a MySQL database. It supports both local CSV files and CSV files stored on Google Drive.You can also import Google Sheets to MYsql.
 
 
 **Installation**
