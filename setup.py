@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='csv2database',
-    version='0.0.4',
+    version='0.0.5',
     author='Md Arfaan Baig',
     author_email='mdarfaanbaig@gmail.com',
     description='A package for importing CSV files into a MySQL database',
