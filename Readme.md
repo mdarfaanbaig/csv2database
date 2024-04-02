@@ -51,6 +51,27 @@ else:
     print("Error importing Google Drive CSV file.")
 
 
+ **Google Sheet Import**
+
+To import data from Google Sheets into your MySQL database, you can use the GoogleSheetImporter class provided by this package. Here's an example of how to use it:
+
+from csv2database.csv_import import GoogleSheetImporter
+
+#Specify the spreadsheet ID and sheet name from Google Sheets
+
+spreadsheet_id = "your_google_sheets_spreadsheet_id"
+sheet_name = "YourSheetName"
+
+#Initialize GoogleSheetImporter and call the load_sheet_to_mysql method
+
+success = GoogleSheetImporter(spreadsheet_id, sheet_name).load_sheet_to_mysql("localhost", "my_database", "root", "password")
+
+if success:
+    print("Data imported successfully from Google Sheet.")
+else:
+    print("Failed to import data from Google Sheet.")
+
+
 **Dependencies:**
 numpy >= 1.0.0
 pandas >= 1.0.0
